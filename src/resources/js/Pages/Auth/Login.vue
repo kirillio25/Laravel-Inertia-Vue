@@ -1,50 +1,82 @@
 <script setup>
-
-import { useForm } from "@inertiajs/vue3";
-import TextInput from "../Components/TextInput.vue";
+import { useForm, Head, Link } from "@inertiajs/vue3";
 
 const form = useForm({
-    email: null,
-    password: null,
-    remember: null,
+    email: "",
+    password: "",
+    remember: false,
 });
 
-const sudmit = () => {
-    console.log(form);
+const submit = () => {
     form.post(route("login"), {
-        onError: () => form.reset("password"), // сбросить форму если есть ошибка
+        onError: () => form.reset("password"),
     });
 };
-
 </script>
+
 <template>
-    <Head title="Login"/>
+    <Head title="Login" />
 
-    <h1>login</h1>
+    <div class="container mt-5" style="max-width: 500px;">
+        <h2 class="mb-4 text-center">Вход</h2>
 
-    <form @submit.prevent="sudmit">
-        <TextInput
-            name="email"
-            type="email"
-            v-model="form.email"
-            :message="form.errors.email"
-        />
+        <form @submit.prevent="submit" class="card p-4 shadow-sm">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    v-model="form.email"
+                    class="form-control"
+                    placeholder="Введите email"
+                />
+                <div v-if="form.errors.email" class="text-danger small">
+                    {{ form.errors.email }}
+                </div>
+            </div>
 
-        <TextInput
-            name="password"
-            type="password"
-            v-model="form.password"
-            :message="form.errors.password"
-        />
+            <div class="mb-3">
+                <label for="password" class="form-label">Пароль</label>
+                <input
+                    type="password"
+                    id="password"
+                    v-model="form.password"
+                    class="form-control"
+                    placeholder="Введите пароль"
+                />
+                <div v-if="form.errors.password" class="text-danger small">
+                    {{ form.errors.password }}
+                </div>
+            </div>
 
-        <div>
-            <label>Запомнить меня</label>
-            <input type="checkbox" v-model="form.remember">
-        </div>
+            <div class="form-check mb-3">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="remember"
+                    v-model="form.remember"
+                />
+                <label class="form-check-label" for="remember">
+                    Запомнить меня
+                </label>
+            </div>
 
-        Зарегистрироваться ? <a :href="route('register')">тут</a>
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <div>
+                    Нет аккаунта?
+                    <Link :href="route('register')" class="text-decoration-none">
+                        Зарегистрироваться
+                    </Link>
+                </div>
 
-        <button :disabled="form.processing" >Войти</button>
-    </form>
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    :disabled="form.processing"
+                >
+                    Войти
+                </button>
+            </div>
+        </form>
+    </div>
 </template>
-

@@ -8,9 +8,20 @@
     <div>
         <header class="bg-light py-2 mb-3">
             <nav class="container d-flex justify-content-start">
-                <span class="fw-semibold me-5">{{ $page.props.auth }}</span>
+
 
                 <div v-if="$page.props.auth.user">
+                    <span class="fw-semibold me-5">{{ $page.props.auth.user.name }}</span>
+                    <img
+                        :src="$page.props.auth.user?.avatar
+                        ? `/storage/${$page.props.auth.user.avatar}`
+                        : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'"
+                        alt="User avatar"
+                        class="img-thumbnail rounded-circle"
+                        style="width: 50px; height: 50px; object-fit: cover;"
+                    >
+
+
                     <Link :href="route('logout')" method="post" as="button" type="button"
                           class="text-decoration-none me-2 text-dark">Logout
                     </Link>
