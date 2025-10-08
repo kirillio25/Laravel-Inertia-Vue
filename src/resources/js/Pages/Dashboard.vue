@@ -1,5 +1,6 @@
 <template>
     <div>
-        <h1>Добро пожаловать {{ $page.props.auth.user.name }}</h1>
+        <p>{{ $page.props.flash.greet }}</p>
+        <h2>Это панель упарвления{{ $page.props.auth.user.name }}</h2>
     </div>
 </template>

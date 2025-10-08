@@ -1,10 +1,15 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
-Route::inertia('/', 'Home')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::inertia('/about', 'About')->name('about');
 
 Route::middleware('auth')->group(function () {

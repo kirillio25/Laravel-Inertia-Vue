@@ -27,7 +27,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended('/dashboard');
+        return redirect()->intended('/dashboard')->with('greet', 'Welcome to LAravel');
     }
 
     public function login(Request $request){
